@@ -6,23 +6,25 @@ import { AlertCircle, AlertOctagon, AlertTriangle, Briefcase, ChevronDown, Chevr
 import { useAppDispatch, useAppSelector } from "@/app/redux";
 import { setIsSidebarCollapsed } from "@/state";
 import SidebarLink from "./SidebarLinks";
+import { useGetProjectsQuery } from "@/state/api";
 
 const Sidebar = () =>{
     const [showProjects, setShowProjects] = useState(true);
     const [showPriority, setShowPriority] = useState(true);
 
+    const { data : projects } = useGetProjectsQuery();
     const dispatch = useAppDispatch();
     const isSidebarCollapsed = useAppSelector((state) => state.global.isSidebarCollapsed);
 
     const sidebarClassNames = `fixed flex flex-col h-[100%] justify-between shadow-xl
-    transition-all duration-300 h-full z-40 dark:bg-black overflow-y-auto bg-white
+    transition-all duration-300 h-full z-40 dark:bg-black overflow-y-auto overflow-x-hidden bg-white
     ${isSidebarCollapsed ? "w-0 hidden" : "w-64"}`;
 
     return (
-        <div className={sidebarClassNames}>
+        <div className={sidebarClassNames} >
             <div className="flex h-[100%]  w-full flex-col justify-start">
                 <div className="z-50 flex min-h-[56px] w-64 items-center justify-between bg-white px-6 pt-3 dark:bg-black">
-                    <div className="text-xl font-bold text-gray-800 dark:text-white">
+                    <div className="text-xl font-bold text-gray-800 dark:text-gray-200">
                         EDLIST
                     </div>
                     {isSidebarCollapsed ? null : (
@@ -70,6 +72,14 @@ const Sidebar = () =>{
                         <ChevronDown className="h-5 w-5 cursor-pointer" />
                     )}
                 </button>
+                {showProjects && projects?.map((project) => (
+                    <SidebarLink 
+                        key={project.id} 
+                        icon={Briefcase} 
+                        label={project.name} 
+                        href={`/projects/${project.id}`} 
+                    />
+                ))}
 
                 <button
                     onClick={() => setShowPriority((prev) => !prev)}

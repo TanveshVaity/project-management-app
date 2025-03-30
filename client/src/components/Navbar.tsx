@@ -40,9 +40,9 @@ const Navbar = () =>{
                 </button>
                 <Link  
                     href="/settings"
-                    className={isDarkMode ? `h-min w-min rounded p-2 dark:hover:bg-gray-700` : `h-min w-min rounded p-2 hover:bg-gray-100 `}
+                    className={isDarkMode ? `h-min w-min rounded p-2 dark:hover:bg-gray-700 ` : `h-min w-min rounded p-2 hover:bg-gray-100 `}
                 >
-                    <Settings  className="h-6 w-6 cursor-pointer dark:text-white"/>
+                    <Settings  className="h-6 w-6 cursor-pointer dark:text-white dark:hover:text-gray-700"/>
                 </Link>
                 <div className="ml-2 mr-5 hidden min-h-[2em] w-[0.1rem] bg-gray-200 md:inline-block ">
                     
